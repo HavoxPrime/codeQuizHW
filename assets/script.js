@@ -1,3 +1,4 @@
+//an array of all my questions
 var questions = [
   {
     ansCorrect: false,
@@ -62,9 +63,11 @@ var questions = [
     posAns: ["Blue", "White", "Orange", "Red"],
   },
 ];
+//setting all my variables
 var correctScore = 0;
 var incorrectScore = 0;
 var time = 0;
+var daTimer;
 var chosenQuestion;
 var posScore = document.querySelector(".scoreCorrect");
 var negScore = document.querySelector(".scoreIncorrect");
@@ -76,18 +79,20 @@ var posAns3 = document.querySelector(".ansThree");
 var posAns4 = document.querySelector(".ansFour");
 var btnStart = document.querySelector(".start");
 var btnHScore = document.querySelector(".hScore");
-
+//setting all my listeners
 btnStart.addEventListener("click", gameSet);
 posAns1.addEventListener("click", checkAns);
 posAns2.addEventListener("click", checkAns);
 posAns3.addEventListener("click", checkAns);
 posAns4.addEventListener("click", checkAns);
 btnHScore.addEventListener("click", checkHScore);
-
+//first thing to run when the start button is pushed
 function gameSet() {
   time = 60;
   correctScore = 0;
+  posScore.textContent = "Correct :" + correctScore;
   incorrectScore = 0;
+  negScore.textContent = "Incorrect :" + incorrectScore;
   posAns1.style.visibility = "visible";
   posAns2.style.visibility = "visible";
   posAns3.style.visibility = "visible";
@@ -95,19 +100,23 @@ function gameSet() {
   startTime();
   questionSet();
 }
-
+//sets the questions and answers
 function questionSet() {
-  if (correctScore == 10) {
+  // so it stops when you have answerd all questions/ are out of time.
+  if (correctScore == 10 || time <= 0) {
     return null;
   }
+  //picks a random question and if it has been answerd correct it will pick another.
   chosenQuestion = questions[Math.floor(Math.random() * questions.length)];
-  console.log(chosenQuestion);
   if (chosenQuestion.ansCorrect == true || correctScore == 10) {
     while (chosenQuestion.ansCorrect == true) {
       chosenQuestion = questions[Math.floor(Math.random() * questions.length)];
     }
   }
+  //displays the question
   daQuestion.textContent = chosenQuestion.question;
+
+  // sets the answers on the buttons and checks to make shure no posible answers are repeted
   var valid = false;
   posAns1.textContent = chosenQuestion.posAns[Math.floor(Math.random() * 4)];
 
@@ -159,11 +168,12 @@ function questionSet() {
     valid = false;
   }
 }
-
+//starts the timer
 function startTime() {
   console.log("Time Started");
-  var daTimer = setInterval(function () {
+  daTimer = setInterval(function () {
     if (time <= 1 || correctScore == 10) {
+      time = 0;
       clearInterval(daTimer);
       endGame();
     }
@@ -171,7 +181,7 @@ function startTime() {
     timer.textContent = "Time :" + time;
   }, 1000);
 }
-
+// checks an answer when a button is clicked
 function checkAns(event) {
   console.log(event.toElement.textContent);
   if (event.toElement.textContent == chosenQuestion.ans) {
@@ -184,11 +194,11 @@ function checkAns(event) {
   } else {
     incorrectScore++;
     negScore.textContent = "Incorrect :" + incorrectScore;
-    time - 10;
+    time -= 10;
   }
   questionSet();
 }
-
+//when the game ends this happens
 function endGame() {
   daQuestion.textContent = "GAME OVER";
   posAns1.style.visibility = "hidden";
@@ -198,15 +208,13 @@ function endGame() {
   scoreSave();
   reset();
 }
-
+//resets the questions
 function reset() {
-  correctScore = 0;
-  incorrectScore = 0;
   for (i = 0; i < questions.length; i++) {
     questions[i].ansCorrect = false;
   }
 }
-
+//saves a score if it beat the highscore
 function scoreSave() {
   console.log("saved");
   var name = prompt("Give us a name to save your score.");
@@ -230,7 +238,7 @@ function scoreSave() {
     localStorage.setItem("highscore", JSON.stringify(savingGame));
   }
 }
-
+// checks the highscore
 function checkHScore() {
   var highScore = JSON.parse(localStorage.getItem("highscore"));
   if (highScore !== null) {
