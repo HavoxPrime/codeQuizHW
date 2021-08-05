@@ -2,16 +2,16 @@
 
 ## Description
 
-This is a password generator that i finished
-![Password generator with a password filed in](https://github.com/HavoxPrime/codeQuizHW/blob/main/assets/imgs/codeQuizHWpic.png)
+This is a Quiz that i made based on the Portal series.
+![Quiz for the Portal series](https://github.com/HavoxPrime/codeQuizHW/blob/main/assets/imgs/codeQuizHWpic.png)
 
-- Before i started the html and css were already complete so i just added comments to them.
-- the js needed prompts for password length and what kinds of characters to use.
-- it also needed a function for password generation.
+- Using bootstrap for the html and basicly skiping the css was great.
+- Wish i used jquery but i wasn't thinking.
+- This project got kinda hary for a bit because i wrote a bunch of code that i didn't need and I didn't test frequlenty enough so i didn't have to guess what was wrong.
 
 ## Usage
 
-This will generate a password between 8 and 128 characters long with the option to inclued uppercase letets, numbers and, special characters.
+Fun, I hope?
 
 ## License
 
