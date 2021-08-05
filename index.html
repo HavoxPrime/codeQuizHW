@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head> 
+    <title>Portal Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href=".\assets\style.css" />
+</head>
+<body class="bg-dark text-white">
+  <header class="position-relative m-5">
+      <h1 class="position-absolute top-0 start-0 ">Portal Quiz!</h1>
+      <div class="scoreBox position-absolute top-0 end-0 border border-3 rounded">
+        <h3 class="timer">Time Left: 0</h3>
+        <h3 class="scoreCorrect">Correct: 0</h3>
+        <h3 class="scoreIncorrect">Incorrect: 0</h3>
+      </div>
+  </header>
+  <br><br><br><br><br><br>
+  <section class="questionBox d-flex justify-content-center border border-3 m-5">
+    <div class="flex-row p-3 m-3">
+        <h2 class="daQuestion">
+            Default Q!
+        </h2>
+    </div>
+  </section>
+  <section class="ansOptions d-flex justify-content-center">
+    <div class="form-check flex-row p-4 m-3 border border-1 rounded">
+        <input class="ansOne form-check-input border border-1 rounded" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+        <label class=" form-check-label" for="flexRadioDefault1">
+            Default 1
+        </label>
+    </div>
+    <div class="form-check flex-row p-4 m-3 border border-1 rounded">
+        <input class="ansTwo form-check-input border border-1 rounded" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+        <label class="form-check-label" for="flexRadioDefault2">
+            Default 2
+        </label>
+    </div>
+    <div class="form-check flex-row p-4 m-3 border border-1 rounded">
+        <input class="ansThree form-check-input border border-1 rounded" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+        <label class="form-check-label" for="flexRadioDefault3">
+            Default 3
+        </label>
+    </div>
+    <div class="form-check flex-row p-4 m-3 border border-1 rounded">
+        <input class="ansFour form-check-input border border-1 rounded" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+        <label class="form-check-label" for="flexRadioDefault4">
+            Default 4
+        </label>
+    </div>
+  </section>
+  <button class="start position-relative top-50 start-50">Start</button>
+  <button class="submit position-relative top-50 start-50">Submit</button>
+  <button class="quit position-relative top-50 start-50">Quit</button>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src=".\assets\script.js"></script>
+</body>
+</html>
