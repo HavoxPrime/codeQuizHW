@@ -75,28 +75,35 @@ var posAns2 = document.querySelector(".ansTwo");
 var posAns3 = document.querySelector(".ansThree");
 var posAns4 = document.querySelector(".ansFour");
 var btnStart = document.querySelector(".start");
-var btnQuit = document.querySelector(".quit");
+var btnHScore = document.querySelector(".hScore");
 
 btnStart.addEventListener("click", gameSet);
 posAns1.addEventListener("click", checkAns);
 posAns2.addEventListener("click", checkAns);
 posAns3.addEventListener("click", checkAns);
 posAns4.addEventListener("click", checkAns);
-btnQuit.addEventListener("click", endGame);
+btnHScore.addEventListener("click", checkHScore);
 
 function gameSet() {
   time = 60;
   correctScore = 0;
   incorrectScore = 0;
+  posAns1.style.visibility = "visible";
+  posAns2.style.visibility = "visible";
+  posAns3.style.visibility = "visible";
+  posAns4.style.visibility = "visible";
   startTime();
   questionSet();
 }
 
 function questionSet() {
+  if (correctScore == 10) {
+    return null;
+  }
   chosenQuestion = questions[Math.floor(Math.random() * questions.length)];
   console.log(chosenQuestion);
-  if (chosenQuestion.ansCorrect == true) {
-    while (chosenQuestion.ansCorrect == true || correctScore == 10) {
+  if (chosenQuestion.ansCorrect == true || correctScore == 10) {
+    while (chosenQuestion.ansCorrect == true) {
       chosenQuestion = questions[Math.floor(Math.random() * questions.length)];
     }
   }
@@ -155,6 +162,14 @@ function questionSet() {
 
 function startTime() {
   console.log("Time Started");
+  var daTimer = setInterval(function () {
+    if (time <= 1 || correctScore == 10) {
+      clearInterval(daTimer);
+      endGame();
+    }
+    time--;
+    timer.textContent = "Time :" + time;
+  }, 1000);
 }
 
 function checkAns(event) {
@@ -162,6 +177,10 @@ function checkAns(event) {
   if (event.toElement.textContent == chosenQuestion.ans) {
     correctScore++;
     posScore.textContent = "Correct :" + correctScore;
+    chosenQuestion.ansCorrect = true;
+    if (correctScore == 10) {
+      endGame();
+    }
   } else {
     incorrectScore++;
     negScore.textContent = "Incorrect :" + incorrectScore;
@@ -171,11 +190,61 @@ function checkAns(event) {
 }
 
 function endGame() {
-  daQuestion.value = "GAME OVER";
-  time = 0;
+  daQuestion.textContent = "GAME OVER";
+  posAns1.style.visibility = "hidden";
+  posAns2.style.visibility = "hidden";
+  posAns3.style.visibility = "hidden";
+  posAns4.style.visibility = "hidden";
   scoreSave();
+  reset();
+}
+
+function reset() {
+  correctScore = 0;
+  incorrectScore = 0;
+  for (i = 0; i < questions.length; i++) {
+    questions[i].ansCorrect = false;
+  }
 }
 
 function scoreSave() {
   console.log("saved");
+  var name = prompt("Give us a name to save your score.");
+  var savingGame = {
+    playerName: name,
+    score: correctScore,
+    bestTime: time,
+  };
+  var highScore = JSON.parse(localStorage.getItem("highscore"));
+  if (highScore !== null) {
+    if (savingGame.score > highScore.score) {
+      if (savingGame.bestTime > highScore.bestTime) {
+        alert("Highscore!!! Congrats!");
+        localStorage.setItem("highscore", JSON.stringify(savingGame));
+      }
+    } else {
+      alert("You did not beat the highscore. Try again.");
+    }
+  } else {
+    alert("Highscore!!! Congrats!");
+    localStorage.setItem("highscore", JSON.stringify(savingGame));
+  }
+}
+
+function checkHScore() {
+  var highScore = JSON.parse(localStorage.getItem("highscore"));
+  if (highScore !== null) {
+    alert(
+      "Best score is " +
+        highScore.score +
+        " by " +
+        highScore.playerName +
+        " in a time of " +
+        highScore.bestTime +
+        "!"
+    );
+  } else {
+    alert("No score found.");
+    return;
+  }
 }
